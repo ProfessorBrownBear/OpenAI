@@ -1,0 +1,77 @@
+a complete python application to make api calls to the OPENAI api to create a toy mvp version of chatgtp
+ChatGPT
+
+pip install openai
+Here's a simple Python script that uses the OpenAI API:
+
+
+import openai
+import os
+
+openai.api_key = 'your-api-key'
+
+def chat_with_gpt3(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # Use the davinci model
+        prompt=prompt,
+        temperature=0.5,
+        max_tokens=100
+    )
+    return response.choices[0].text.strip()
+
+def main():
+    while True:
+        prompt = input("You: ")
+        if prompt.lower() == 'quit':
+            break
+        response = chat_with_gpt3(prompt)
+        print(f"GPT-3: {response}")
+
+if __name__ == '__main__':
+    main()
+In this script, replace 'your-api-key' with your actual OpenAI API key. You can find this key in the OpenAI dashboard after you've signed up.
+
+This script will allow you to chat with the GPT-3 model. You can type in a prompt, and the script will print out the model's response. To end the chat, type 'quit'.
+
+Please note that this is a very basic example. A production-ready chatbot would need to handle more complex scenarios and edge cases. Also, remember that using the OpenAI API costs money, so be mindful of how many API calls your application is making.
+
+Finally, please remember to secure your API keys. Don't hardcode them into your scripts or check them into source control. In this example, you could use an environment variable to store your API key, and then use os.getenv('OPENAI_API_KEY') to retrieve it.
+
+
+
+
+User
+tell me how to use an environment variable to store your API key, and then use os.getenv('OPENAI_API_KEY') to retrieve it.
+ChatGPT
+Sure, using environment variables is a common way to handle sensitive data like API keys. Here's how you can do it:
+
+Setting the environment variable: This process varies depending on your operating system.
+
+On Unix-based systems (like Linux or MacOS), you can set environment variables in the terminal like this:
+
+bash
+Copy code
+export OPENAI_API_KEY='your-api-key'
+On Windows, you can set environment variables in the command prompt like this:
+
+cmd
+Copy code
+setx OPENAI_API_KEY "your-api-key"
+Please replace 'your-api-key' with your actual OpenAI API key.
+
+Accessing the environment variable in Python: Once the environment variable is set, you can access it in your Python script using the os module's getenv function:
+
+python
+Copy code
+import os
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
+This line of code retrieves the value of the OPENAI_API_KEY environment variable and assigns it to openai.api_key.
+
+Remember, environment variables set in this way are usually only available for the duration of the session. If you close the terminal or command prompt, you'll need to set the environment variable again next time.
+
+If you want to set the environment variable permanently, the process is a bit different and depends on your operating system. On Unix-based systems, you can add the export line to your shell's initialization script (like ~/.bashrc or ~/.bash_profile for the Bash shell). On Windows, you can use the System Properties dialog to set environment variables permanently.
+
+
+
+
